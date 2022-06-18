@@ -27,7 +27,9 @@ const usePlanetsData = () => {
         amount: Number(population),
       };
     });
-    setPlanetsChartData(formattedResults);
+    setTimeout(() => {
+      setPlanetsChartData(formattedResults);
+    }, 2000);
   };
 
   return { planetsChartData };
