@@ -29,9 +29,7 @@ const useVehicleTableData = () => {
       planets
     );
 
-    setTimeout(() => {
-      setResultTableData(vehicleWithMaxPopulationData);
-    }, 1500);
+    setResultTableData(vehicleWithMaxPopulationData);
   };
 
   return { resultTableData };
