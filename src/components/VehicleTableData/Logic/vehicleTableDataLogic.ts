@@ -1,5 +1,3 @@
-import { Planet } from "./../types";
-import { type } from "@testing-library/user-event/dist/type";
 import { apiHelper } from "../../../utils/apiHelper";
 import {
   pageResult,

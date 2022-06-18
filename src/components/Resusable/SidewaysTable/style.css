@@ -1,0 +1,15 @@
+.barChart {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    padding: 50px;
+    width: 100%;
+}
+
+
+.bar_representation {
+    width: 50px;
+    background: green;
+}
