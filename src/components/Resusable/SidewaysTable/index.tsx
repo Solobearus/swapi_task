@@ -3,16 +3,20 @@ import { Props } from "./types";
 
 const SidewaysTable = ({ data }: Props) => {
   return (
-    <table className="sidewaysTable">
-      <tbody>
-        {Object.keys(data).map((key) => (
-          <tr>
-            <td>{key}</td>
-            <td>{data[key]}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <div className="sidewaysTableWrapper">
+
+      <table className="sidewaysTable">
+        <tbody>
+          {Object.keys(data).map((key) => (
+            <tr key={key}>
+              <th>{key}</th>
+              <td>{data[key]}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
   );
 };
 

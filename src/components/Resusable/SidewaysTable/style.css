@@ -1,15 +1,32 @@
-.barChart {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-items: center;
-    padding: 50px;
-    width: 100%;
+.sidewaysTableWrapper th {
+    background-color: var(--Bright);
 }
 
+.sidewaysTableWrapper td {
+    background-color: var(--Dark);
+    color: var(--White);
+}
 
-.bar_representation {
-    width: 50px;
-    background: green;
+.sidewaysTableWrapper table, .sidewaysTableWrapper th, .sidewaysTableWrapper td {
+    border: none;
+    text-align: left;
+    border-collapse: collapse;
+    margin: 0;
+    width: 100%;
+    padding: 20px;
+}
+
+.sidewaysTableWrapper table {
+    border-radius: 1em;
+    overflow: hidden;
+}
+
+.sidewaysTableWrapper th, .sidewaysTableWrapper td {
+    height: 60px;
+    width: 50%;
+}
+
+.sidewaysTableWrapper {
+    width: 100%;
+    padding: 50px;
 }

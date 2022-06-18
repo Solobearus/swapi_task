@@ -1,15 +1,22 @@
 .barChart {
+    padding: var(--medium-padding);
+    width: 100%;
+
+}
+
+.innerBarChart {
+    background: var(--Dark);
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
-    padding: 50px;
-    width: 100%;
+    color: var(--White);
+    padding: var(--medium-padding);
+    border-radius: var(--border-radius);
 }
-
 
 .bar_representation {
     width: 50px;
-    background: green;
+    background: var(--Bright);
 }
