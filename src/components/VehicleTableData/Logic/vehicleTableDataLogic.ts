@@ -70,6 +70,48 @@ export const getPlanets = async (planetURLs: URLObject) => {
   }, {});
 };
 
+const initMaxPopulationVehicleResult = (currentVehicleName?: string) => ({
+  population: 0,
+  vehicleName: currentVehicleName || "",
+  relatedPlanets: [],
+  relatedPilots: [],
+});
+
+const populateCurrentVehicle = (
+  currentVehicleName: string,
+  currentVehicle: string[],
+  pilots: Record<string, Omit<Pilot, "url">>,
+  planets: ResolvedPlanets
+) => {
+  const currentVehicleInfo: MaxPopulationVehicle =
+    initMaxPopulationVehicleResult(currentVehicleName);
+
+  currentVehicleInfo.population = currentVehicle.reduce(
+    (summedPopulation: number, currentPilot) => {
+      const mappedPilot = pilots[currentPilot];
+      currentVehicleInfo.relatedPilots = [
+        ...currentVehicleInfo.relatedPilots,
+        mappedPilot.name,
+      ];
+
+      const mappedPlanet = planets[mappedPilot.homeworld];
+      currentVehicleInfo.relatedPlanets = [
+        ...currentVehicleInfo.relatedPlanets,
+        {
+          name: mappedPlanet.name,
+          population: mappedPlanet.population,
+        },
+      ];
+
+      return isNaN(mappedPlanet.population)
+        ? summedPopulation
+        : mappedPlanet.population + summedPopulation;
+    },
+    0
+  );
+  return currentVehicleInfo;
+};
+
 export const calculateSumOfPopulationPerVehicle = (
   vehicles: Vehicles,
   pilots: Record<string, Omit<Pilot, "url">>,
@@ -77,51 +119,20 @@ export const calculateSumOfPopulationPerVehicle = (
 ) => {
   const maxPopulationVehicle = Object.keys(vehicles).reduce(
     (maxPopulationVehicle: MaxPopulationVehicle, currentVehicleName) => {
-      const currentVehicleInfo: MaxPopulationVehicle = {
-        population: 0,
-        vehicleName: currentVehicleName,
-        relatedPlanets: [],
-        relatedPilots: [],
-      };
-
-      const currentVehicle: string[] = vehicles[currentVehicleName];
-
-      currentVehicleInfo.population = currentVehicle.reduce(
-        (summedPopulation: number, currentPilot) => {
-          const mappedPilot = pilots[currentPilot];
-          currentVehicleInfo.relatedPilots = [
-            ...currentVehicleInfo.relatedPilots,
-            mappedPilot.name,
-          ];
-
-          const mappedPlanet = planets[mappedPilot.homeworld];
-          currentVehicleInfo.relatedPlanets = [
-            ...currentVehicleInfo.relatedPlanets,
-            {
-              name: mappedPlanet.name,
-              population: mappedPlanet.population,
-            },
-          ];
-
-          return isNaN(mappedPlanet.population)
-            ? summedPopulation
-            : mappedPlanet.population + summedPopulation;
-        },
-        0
+      const populatedVehicle = populateCurrentVehicle(
+        currentVehicleName,
+        vehicles[currentVehicleName],
+        pilots,
+        planets
       );
 
-      if (currentVehicleInfo.population > maxPopulationVehicle.population) {
-        return currentVehicleInfo;
+      if (populatedVehicle.population > maxPopulationVehicle.population) {
+        return populatedVehicle;
       }
 
       return maxPopulationVehicle;
     },
-    {
-      population: 0,
-      vehicleName: "",
-      relatedPlanets: [],
-      relatedPilots: [],
-    }
+    initMaxPopulationVehicleResult()
   );
 
   return maxPopulationVehicle;
