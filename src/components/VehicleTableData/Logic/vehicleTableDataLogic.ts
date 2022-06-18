@@ -64,7 +64,10 @@ export const getPlanets = async (planetURLs: URLObject) => {
 
   return resolvedPlanets.reduce((getPlanetsResult: ResolvedPlanets, planet) => {
     const { name, url, population } = planet;
-    getPlanetsResult[url] = { name, population: +population };
+    getPlanetsResult[url] = {
+      name,
+      population: +(population === "unknown" ? 0 : population),
+    };
 
     return getPlanetsResult;
   }, {});
