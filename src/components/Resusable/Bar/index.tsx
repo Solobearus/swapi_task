@@ -7,12 +7,12 @@ const Bar = ({
   data: ChartDataWithHeight,
 }) => (
   <div className="bar">
-    <div className="bar_name">{name}</div>
+    <div className="barName">{name}</div>
     <div
       className="bar_representation"
       style={{ height: `calc(10px + ${heightPracentage}%)` }}
     ></div>
-    <div className="bar_amount">{amount}</div>
+    <div className="barAmount">{amount}</div>
   </div>
 );
 

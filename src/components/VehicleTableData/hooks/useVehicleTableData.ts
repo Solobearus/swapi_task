@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import {
   getVehiclesWithPilotURLs,
-  getPilotsWithPlanets,
+  getPilotsWithPlanetURLs,
   getPlanets,
   calculateSumOfPopulationPerVehicle,
-} from "../Logic/vehicleTableDataLogic";
+} from "../services/vehicleTableDataLogic";
 import { MaxPopulationVehicle } from "../types";
 
 const useVehicleTableData = () => {
@@ -21,7 +21,7 @@ const useVehicleTableData = () => {
       pilotURLs: {},
       next: "https://swapi.py4e.com/api/vehicles/",
     });
-    const { pilots, planetURLS } = await getPilotsWithPlanets(pilotURLs);
+    const { pilots, planetURLS } = await getPilotsWithPlanetURLs(pilotURLs);
     const planets = await getPlanets(planetURLS);
     const vehicleWithMaxPopulationData = calculateSumOfPopulationPerVehicle(
       vehicles,

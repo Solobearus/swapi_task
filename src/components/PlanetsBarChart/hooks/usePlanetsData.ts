@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { CHART_PLANETS } from "../../../utils/consts";
-import { apiHelper } from "../../../utils/apiHelper";
+import { getRequest } from "../../../utils/apiHelper";
 import { GetPlanetsResults } from "../types";
 import { ChartData } from "../../Resusable/BarChart/types";
 
@@ -16,7 +16,7 @@ const usePlanetsData = () => {
   const getChartPlanets = async () => {
     const results: GetPlanetsResults[] = await Promise.all(
       CHART_PLANETS.map((planetName) =>
-        apiHelper(`https://swapi.py4e.com/api/planets/?search=${planetName}`)
+        getRequest(`https://swapi.py4e.com/api/planets/?search=${planetName}`)
       )
     );
 

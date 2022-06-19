@@ -27,3 +27,34 @@ export interface MaxPopulationVehicle {
   relatedPlanets: Planet[];
   relatedPilots: string[];
 }
+
+export type PopulateCurrentVehicle = (
+  currentVehicleName: string,
+  currentVehicle: string[],
+  pilots: Record<string, Omit<Pilot, "url">>,
+  planets: ResolvedPlanets
+) => MaxPopulationVehicle;
+
+export type CalculateSumOfPopulationPerVehicle = (
+  vehicles: Vehicles,
+  pilots: Record<string, Omit<Pilot, "url">>,
+  planets: ResolvedPlanets
+) => MaxPopulationVehicle;
+
+export type InitMaxPopulationVehicleResult = (
+  currentVehicleName?: string
+) => MaxPopulationVehicle;
+
+export type GetPlanets = (planetURLs: URLObject) => Promise<ResolvedPlanets>;
+
+export type GetPilotsWithPlanets = (
+  pilotURLs: URLObject
+) => Promise<ResolvedPilots>;
+
+export type GetPromisesFromURLsObject = (
+  urlsObject: URLObject
+) => Promise<any>[];
+
+export type GetVehiclesWithPilotURLs = (
+  resolvedVehicles: ResolvedVehicles
+) => Promise<ResolvedVehicles>;
